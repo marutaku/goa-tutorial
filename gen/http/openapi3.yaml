@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+    title: Calulator Service
+    description: Service for multiplying numbers, a Goa teaser
+    version: "1.0"
+servers:
+    - url: http://localhost:8000
+paths:
+    /addition/{a}/{b}:
+        get:
+            tags:
+                - calc
+            summary: addition calc
+            operationId: calc#addition
+            parameters:
+                - name: a
+                  in: path
+                  description: Left operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Left operand
+                    example: 7528159319778012238
+                    format: int64
+                  example: 3448989877641388488
+                - name: b
+                  in: path
+                  description: Right operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Right operand
+                    example: 2788110747497692605
+                    format: int64
+                  example: 5305748056757514353
+            responses:
+                "200":
+                    description: OK response.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MultiplyResponseBody'
+                            example:
+                                result: 8228676432890045784
+    /division/{a}/{b}:
+        get:
+            tags:
+                - calc
+            summary: division calc
+            operationId: calc#division
+            parameters:
+                - name: a
+                  in: path
+                  description: Left operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Left operand
+                    example: 6241407428951939308
+                    format: int64
+                  example: 5920194056805489328
+                - name: b
+                  in: path
+                  description: Right operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Right operand
+                    example: 8052218409301066017
+                    format: int64
+                  example: 2245842885737722152
+            responses:
+                "200":
+                    description: OK response.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DivisionResponseBody'
+                            example:
+                                result: 0.13321407191279336
+    /multiply/{a}/{b}:
+        get:
+            tags:
+                - calc
+            summary: multiply calc
+            operationId: calc#multiply
+            parameters:
+                - name: a
+                  in: path
+                  description: Left operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Left operand
+                    example: 7054049476353626766
+                    format: int64
+                  example: 5570723899899913296
+                - name: b
+                  in: path
+                  description: Right operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Right operand
+                    example: 6513733567661029654
+                    format: int64
+                  example: 862594352938458553
+            responses:
+                "200":
+                    description: OK response.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MultiplyResponseBody'
+                            example:
+                                result: 1698882017578366363
+    /openapi.json:
+        get:
+            tags:
+                - calc
+            summary: Download ./gen/http/openapi.json
+            operationId: calc#/openapi.json
+            responses:
+                "200":
+                    description: File downloaded
+    /square_root:
+        post:
+            tags:
+                - calc
+            summary: SquareRoot calc
+            operationId: calc#SquareRoot
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                a:
+                                    type: integer
+                                    description: number
+                                    example: 3168435671144148080
+                                    format: int64
+                            example:
+                                a: 6836512047429743720
+                        example:
+                            a: 2998957498373416763
+            responses:
+                "200":
+                    description: OK response.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DivisionResponseBody'
+                            example:
+                                result: 0.4156538351788886
+    /subtraction/{a}/{b}:
+        get:
+            tags:
+                - calc
+            summary: subtraction calc
+            operationId: calc#subtraction
+            parameters:
+                - name: a
+                  in: path
+                  description: Left operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Left operand
+                    example: 3346131084553893015
+                    format: int64
+                  example: 3122430129802868656
+                - name: b
+                  in: path
+                  description: Right operand
+                  required: true
+                  schema:
+                    type: integer
+                    description: Right operand
+                    example: 5058434971892362792
+                    format: int64
+                  example: 6339444414280965279
+            responses:
+                "200":
+                    description: OK response.
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MultiplyResponseBody'
+                            example:
+                                result: 2937026320033011362
+components:
+    schemas:
+        DivisionResponseBody:
+            type: object
+            properties:
+                result:
+                    type: number
+                    example: 0.48070074221643827
+                    format: double
+            example:
+                result: 0.706720426630607
+            required:
+                - result
+        MultiplyResponseBody:
+            type: object
+            properties:
+                result:
+                    type: integer
+                    example: 4591908534116225627
+                    format: int64
+            example:
+                result: 2205149088366403631
+            required:
+                - result
+tags:
+    - name: calc
+      description: The calc service performs operations on numbers.
